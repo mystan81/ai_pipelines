@@ -3,14 +3,14 @@ import torch
 from torch.nn import Module as TorchModule
 
 
-class GlobalAveragePool(torch.nn.Module):
+class GlobalAveragePool_3(torch.nn.Module):
     """Global average pooling operation."""
 
     def forward(self, x):
         return torch.mean(x, axis=[2, 3])
 
 
-class AllConvModelTorch(TorchModule):
+class AllConvModelTorch_3(TorchModule):
     """All convolutional network architecture."""
 
     def __init__(self, num_classes, num_filters, input_shape, activation=torch.nn.LeakyReLU(0.2)):
@@ -31,7 +31,7 @@ class AllConvModelTorch(TorchModule):
             self.layers.append(activation)
             self.layers.append(torch.nn.AvgPool2d((2, 2)))
         self.layers.append(torch.nn.Conv2d(prev, num_classes, kernel_size=3, padding=(1,1)))
-        self.layers.append(GlobalAveragePool())
+        self.layers.append(GlobalAveragePool_3())
         self.layers.append(torch.nn.Softmax(dim=1))
 
     def __call__(self, x, training=False):

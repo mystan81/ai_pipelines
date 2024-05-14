@@ -5,14 +5,14 @@ import torch
 from torch.nn import Module as TorchModule
 
 
-class GlobalAveragePool(torch.nn.Module):
+class GlobalAveragePool_1(torch.nn.Module):
     """Global average pooling operation."""
 
     def forward(self, x):
         return torch.mean(x, axis=[2, 3])
 
 
-class AllConvModelTorch(TorchModule):
+class AllConvModelTorch_1(TorchModule):
     """All convolutional network architecture."""
 
     def __init__(self, num_classes, num_filters, input_shape, activation=torch.nn.LeakyReLU(0.2)):
@@ -33,7 +33,7 @@ class AllConvModelTorch(TorchModule):
             self.layers.append(activation)
             self.layers.append(torch.nn.AvgPool2d((2, 2)))
         self.layers.append(torch.nn.Conv2d(prev, num_classes, kernel_size=3, padding=(1,1)))
-        self.layers.append(GlobalAveragePool())
+        self.layers.append(GlobalAveragePool_1())
         self.layers.append(torch.nn.Softmax(dim=1))
 
     def __call__(self, x, training=False):
@@ -56,7 +56,7 @@ def classify(x, model):
 
 def run():
     MODEL_PATH = "../checkpoints/blur/final_checkpoint-1"
-    model = AllConvModelTorch(num_classes=10,
+    model = AllConvModelTorch_1(num_classes=10,
                             num_filters=64,
                             input_shape=[3, 32, 32])
     model.load_state_dict(
@@ -65,15 +65,6 @@ def run():
     classify(np.random.rand(1, 3, 32, 32), model)
 
 if __name__ == "__main__":
-
-    # MODEL_PATH = "../checkpoints/blur/final_checkpoint-1"
-    # model = AllConvModelTorch(num_classes=10,
-    #                         num_filters=64,
-    #                         input_shape=[3, 32, 32])
-    # model.load_state_dict(
-    #     torch.load((MODEL_PATH) + ".torchmodel"))
-    
-    # classify(np.random.rand(1, 3, 32, 32), model)
     run()
 
     

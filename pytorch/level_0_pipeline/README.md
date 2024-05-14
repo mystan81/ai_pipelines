@@ -1,0 +1,1 @@
+No AI pipeline. Just definition of one preprocessor and one model. The model is defined in one file, and the processors are defined in another file.
