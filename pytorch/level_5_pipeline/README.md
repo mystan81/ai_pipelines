@@ -1,0 +1,1 @@
+Two AI pipelines, one with processor -> model -> processor -> model -> processor, and the other with one preprocessor, one model, and one postprocessor. The models are defined in one file, and the processors are defined in another file.

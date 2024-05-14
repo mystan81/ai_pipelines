@@ -1,0 +1,1 @@
+Simple AI pipeline with one preprocessor, one model, and one postprocessor all defined in the same file.
